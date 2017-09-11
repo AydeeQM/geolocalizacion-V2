@@ -1,3 +1,7 @@
+function initMap() {
+    appMaps.setup();
+}
+
 const appMaps = {
     setting: {
         initGoogleMap: undefined, // objeto de google
@@ -9,22 +13,19 @@ const appMaps = {
         }, //posicion actual
 
         buttonSearchPosition: undefined //busacr la posicion
-        
+
     },
 
     //funcion para inicilaizar la aplicacion
-    init: function () {
-        appMaps.setup();
-    },
 
     setup: function () {
         appMaps.wrapper = document.getElementById('map'),
-        appMaps.buttonSearchPosition = $('#encuentrame').on('click',appMaps.searchPosition),
-        appMaps.currentPosition = {
+            appMaps.buttonSearchPosition = $('#encuentrame').on('click', appMaps.searchPosition),
+            appMaps.currentPosition = {
                 lat: -9.1191427,
                 lng: -77.0349046
             },
-        appMaps.configMapGoogle = {
+            appMaps.configMapGoogle = {
                 zoom: 5,
                 center: appMaps.currentPosition,
                 mapTypeControl: false,
@@ -32,7 +33,7 @@ const appMaps = {
                 streetViewControl: true
             },
 
-        appMaps.setting.initGoogleMap = new google.maps.Map(appMaps.wrapper, appMaps.configMapGoogle)
+            appMaps.setting.initGoogleMap = new google.maps.Map(appMaps.wrapper, appMaps.configMapGoogle)
 
     },
 
@@ -48,7 +49,7 @@ const appMaps = {
         success: function (position) {
             appMaps.currentPosition.lat = position.coords.latitude;
             appMaps.currentPosition.lng = position.coords.longitude;
-            
+
             //console.log(position.coords.latitude);
 
             let currentPositionMarker = new google.maps.Marker({
@@ -58,7 +59,7 @@ const appMaps = {
 
             });
 
-             appMaps.setting.initGoogleMap.setZoom(17);
+            appMaps.setting.initGoogleMap.setZoom(17);
             appMaps.setting.initGoogleMap.setCenter(appMaps.currentPosition);
         },
         error: function () {
@@ -67,5 +68,3 @@ const appMaps = {
     },
 
 }
-
-$(document).ready(appMaps.init);
